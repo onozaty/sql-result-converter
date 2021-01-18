@@ -1,2 +1,3 @@
-# sql-result-converter
+# sql-resultset-converter
+
 Converts a SQL ResultSet.
