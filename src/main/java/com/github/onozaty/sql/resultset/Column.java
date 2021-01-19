@@ -5,9 +5,10 @@ import lombok.Value;
 /**
  * カラム定義です。
  * @author onozaty
+ * @param <T> カラムの値型
  */
 @Value
-public class Column {
+public class Column<T> {
 
     /**
      * 名前
@@ -17,5 +18,5 @@ public class Column {
     /**
      * 値取得処理
      */
-    private final ValueRetriever retriever;
+    private final ValueRetriever<T> retriever;
 }

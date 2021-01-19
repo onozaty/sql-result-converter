@@ -20,7 +20,9 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.18.1'
+    testImplementation 'com.h2database:h2:1.4.200'
 
+    
     testCompileOnly 'org.projectlombok:lombok:1.18.10'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
