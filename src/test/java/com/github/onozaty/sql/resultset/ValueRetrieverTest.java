@@ -17,6 +17,7 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
@@ -27,7 +28,8 @@ import org.junit.Test;
 public class ValueRetrieverTest {
 
     /**
-     * INT型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>INT型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -53,7 +55,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * BOOLEAN型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>BOOLEAN型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -79,7 +82,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * TINYINT型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>TINYINT型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -105,7 +109,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * SMALLINT型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>SMALLINT型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -131,7 +136,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * BIGINT型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>BIGINT型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -157,7 +163,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * DECIMAL型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>DECIMAL型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -183,7 +190,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * DOUBLE型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>DOUBLE型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -209,7 +217,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * REAL型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>REAL型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -235,7 +244,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * TIME型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>TIME型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -261,7 +271,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * TIME WITH TIME ZONE型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>TIME WITH TIME ZONE型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -287,7 +298,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * DATE型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>DATE型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -313,7 +325,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * TIMESTAMP型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>TIMESTAMP型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -339,7 +352,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * TIMESTAMP WITH TIME ZONE型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>TIMESTAMP WITH TIME ZONE型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -366,7 +380,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * VARCHAR型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>VARCHAR型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -392,7 +407,8 @@ public class ValueRetrieverTest {
     }
 
     /**
-     * ARRAY型のカラムに対するテストです。
+     * {@link ValueRetriever#newValueRetriever(int, Class)}のテストです。
+     * <p>ARRAY型のカラムの確認です。</p>
      * @throws SQLException
      */
     @Test
@@ -416,4 +432,150 @@ public class ValueRetrieverTest {
             }
         }
     }
+
+    /**
+     * {@link ValueRetriever#newFormattedValueRetriever(int, Class, DateTimeFormatter)}のテストです。
+     * <p>TIME型のカラムの確認です。</p>
+     * @throws SQLException
+     */
+    @Test
+    public void newFormattedValueRetriever_Time() throws SQLException {
+
+        try (Connection connection = TestDbUtils.getConnection()) {
+
+            TestDbUtils.setupTable(connection);
+
+            try (Statement statement = connection.createStatement()) {
+
+                try (ResultSet resultSet = statement.executeQuery("SELECT column_time FROM rows")) {
+
+                    resultSet.next();
+
+                    String value = ValueRetriever
+                            .newFormattedValueRetriever(1, LocalTime.class, DateTimeFormatter.ISO_LOCAL_TIME)
+                            .retrieve(resultSet);
+
+                    assertThat(value)
+                            .isEqualTo("23:59:59");
+                }
+            }
+        }
+    }
+
+    /**
+     * {@link ValueRetriever#newFormattedValueRetriever(int, Class, DateTimeFormatter)}のテストです。
+     * <p>TIME WITH TIME ZONE型のカラムの確認です。</p>
+     * @throws SQLException
+     */
+    @Test
+    public void newFormattedValueRetriever_TimeWithTz() throws SQLException {
+
+        try (Connection connection = TestDbUtils.getConnection()) {
+
+            TestDbUtils.setupTable(connection);
+
+            try (Statement statement = connection.createStatement()) {
+
+                try (ResultSet resultSet = statement.executeQuery("SELECT column_time_tz FROM rows")) {
+
+                    resultSet.next();
+
+                    String value = ValueRetriever
+                            .newFormattedValueRetriever(1, OffsetTime.class, DateTimeFormatter.ISO_OFFSET_TIME)
+                            .retrieve(resultSet);
+
+                    assertThat(value)
+                            .isEqualTo("23:59:59+01:00");
+                }
+            }
+        }
+    }
+
+    /**
+     * {@link ValueRetriever#newFormattedValueRetriever(int, Class, DateTimeFormatter)}のテストです。
+     * <p>DATE型のカラムの確認です。</p>
+     * @throws SQLException
+     */
+    @Test
+    public void newFormattedValueRetriever_Date() throws SQLException {
+
+        try (Connection connection = TestDbUtils.getConnection()) {
+
+            TestDbUtils.setupTable(connection);
+
+            try (Statement statement = connection.createStatement()) {
+
+                try (ResultSet resultSet = statement.executeQuery("SELECT column_date FROM rows")) {
+
+                    resultSet.next();
+
+                    String value = ValueRetriever
+                            .newFormattedValueRetriever(1, LocalDate.class, DateTimeFormatter.ISO_LOCAL_DATE)
+                            .retrieve(resultSet);
+
+                    assertThat(value)
+                            .isEqualTo("2004-12-31");
+                }
+            }
+        }
+    }
+
+    /**
+     * {@link ValueRetriever#newFormattedValueRetriever(int, Class, DateTimeFormatter)}のテストです。
+     * <p>TIMESTAMP型のカラムの確認です。</p>
+     * @throws SQLException
+     */
+    @Test
+    public void newFormattedValueRetriever_Timestamp() throws SQLException {
+
+        try (Connection connection = TestDbUtils.getConnection()) {
+
+            TestDbUtils.setupTable(connection);
+
+            try (Statement statement = connection.createStatement()) {
+
+                try (ResultSet resultSet = statement.executeQuery("SELECT column_timestamp FROM rows")) {
+
+                    resultSet.next();
+
+                    String value = ValueRetriever
+                            .newFormattedValueRetriever(1, LocalDateTime.class, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                            .retrieve(resultSet);
+
+                    assertThat(value)
+                            .isEqualTo("1999-01-31T10:00:00");
+                }
+            }
+        }
+    }
+
+    /**
+     * {@link ValueRetriever#newFormattedValueRetriever(int, Class, DateTimeFormatter)}のテストです。
+     * <p>TIMESTAMP WITH TIME ZONE型のカラムの確認です。</p>
+     * @throws SQLException
+     */
+    @Test
+    public void newFormattedValueRetriever_TimestampWithTz() throws SQLException {
+
+        try (Connection connection = TestDbUtils.getConnection()) {
+
+            TestDbUtils.setupTable(connection);
+
+            try (Statement statement = connection.createStatement()) {
+
+                try (ResultSet resultSet = statement.executeQuery("SELECT column_timestamp_tz FROM rows")) {
+
+                    resultSet.next();
+
+                    String value = ValueRetriever
+                            .newFormattedValueRetriever(1, OffsetDateTime.class, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                            .retrieve(resultSet);
+
+                    assertThat(value)
+                            .isEqualTo("2005-12-31T23:59:59-10:00");
+                }
+            }
+        }
+    }
+
 }
