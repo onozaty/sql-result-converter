@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 結果出力のインターフェースです。
+ * 結果の出力処理を表します。
  * @author onozaty
  */
 public interface ResultWriter extends Closeable {

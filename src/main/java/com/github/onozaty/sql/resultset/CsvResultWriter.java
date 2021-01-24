@@ -9,7 +9,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 /**
- * CSV出力処理です。
+ * CSV形式での出力処理です。
  * @author onozaty
  */
 public class CsvResultWriter implements ResultWriter {
