@@ -12,7 +12,7 @@ import org.apache.commons.csv.CSVPrinter;
  * CSV形式での出力先です。
  * @author onozaty
  */
-public class CsvDestination implements Destination {
+public class CsvDestination implements OutputDestination {
 
     private final CSVPrinter csvPrinter;
 
@@ -44,7 +44,7 @@ public class CsvDestination implements Destination {
     }
 
     @Override
-    public <T> void output(Column<T> column, T value) throws IOException {
+    public void output(Column<?> column, Object value) throws IOException {
         csvPrinter.print(value);
     }
 

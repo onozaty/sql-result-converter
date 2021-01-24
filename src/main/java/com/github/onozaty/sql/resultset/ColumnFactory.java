@@ -3,12 +3,14 @@ package com.github.onozaty.sql.resultset;
 import static java.time.format.DateTimeFormatter.ofPattern;
 
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -140,7 +142,13 @@ public class ColumnFactory {
                 return new Column<String>(
                         columnName,
                         ValueRetriever.newFormattedValueRetriever(
-                                columnIndex, LocalDateTime.class, DefaultDateTimeFormat.OFFSET_DATE_TIME));
+                                columnIndex, OffsetDateTime.class, DefaultDateTimeFormat.OFFSET_DATE_TIME));
+
+            case Types.ARRAY:
+
+                return new Column<Array>(
+                        columnName,
+                        ValueRetriever.newValueRetriever(columnIndex, Array.class));
 
             default:
 

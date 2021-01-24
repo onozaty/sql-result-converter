@@ -8,7 +8,7 @@ import java.util.List;
  * 出力先を表します。
  * @author onozaty
  */
-public interface Destination extends Closeable {
+public interface OutputDestination extends Closeable {
 
     /**
      * 準備します。
@@ -19,12 +19,11 @@ public interface Destination extends Closeable {
 
     /**
      * 値を出力します。
-     * @param <T> 出力する値の型
      * @param column カラム
      * @param value 値
      * @throws IOException
      */
-    <T> void output(Column<T> column, T value) throws IOException;
+    void output(Column<?> column, Object value) throws IOException;
 
     /**
      * 行を終了します。

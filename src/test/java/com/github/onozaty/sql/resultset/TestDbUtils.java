@@ -89,7 +89,7 @@ public class TestDbUtils {
                             + "-10.0, " // REAL
                             + "'00:00:00', " // TIME
                             + "'12:00:01+09', " // TIME WITH TIME ZONE
-                            + "'2021-01-01'," // DATE
+                            + "NULL," // DATE
                             + "'2021-12-24 20:00:00.12345', " // TIMESTAMP
                             + "'2020-02-01 23:59:59+00:00', " // TIMESTAMP WITH TIME ZONE
                             + "'', " // VARCHAR(100)
