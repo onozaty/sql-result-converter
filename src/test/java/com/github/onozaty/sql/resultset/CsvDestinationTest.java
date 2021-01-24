@@ -9,11 +9,11 @@ import java.util.Arrays;
 import org.junit.Test;
 
 /**
- * {@link CsvResultWriter}のテストです。
+ * {@link CsvDestination}のテストです。
  * @author onozaty
  *
  */
-public class CsvResultWriterTest {
+public class CsvDestinationTest {
 
     @Test
     public void test() throws IOException {
@@ -24,19 +24,19 @@ public class CsvResultWriterTest {
 
         try (
                 StringWriter writer = new StringWriter();
-                CsvResultWriter resultWriter = new CsvResultWriter(writer)) {
+                CsvDestination csvDestination = new CsvDestination(writer)) {
 
-            resultWriter.prepare(Arrays.asList(column1, column2, column3));
+            csvDestination.prepare(Arrays.asList(column1, column2, column3));
 
-            resultWriter.write(column1, "a");
-            resultWriter.write(column2, 1);
-            resultWriter.write(column3, null);
-            resultWriter.endRecord();
+            csvDestination.output(column1, "a");
+            csvDestination.output(column2, 1);
+            csvDestination.output(column3, null);
+            csvDestination.endRecord();
 
-            resultWriter.write(column1, "\"");
-            resultWriter.write(column2, 1000);
-            resultWriter.write(column3, false);
-            resultWriter.endRecord();
+            csvDestination.output(column1, "\"");
+            csvDestination.output(column2, 1000);
+            csvDestination.output(column3, false);
+            csvDestination.endRecord();
 
             String result = writer.toString();
             assertThat(result)

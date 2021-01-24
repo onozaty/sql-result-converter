@@ -9,10 +9,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 /**
- * CSV形式での出力処理です。
+ * CSV形式での出力先です。
  * @author onozaty
  */
-public class CsvResultWriter implements ResultWriter {
+public class CsvDestination implements Destination {
 
     private final CSVPrinter csvPrinter;
 
@@ -21,7 +21,7 @@ public class CsvResultWriter implements ResultWriter {
      * @param writer Writer
      * @throws IOException
      */
-    public CsvResultWriter(Writer writer) throws IOException {
+    public CsvDestination(Writer writer) throws IOException {
         this(new CSVPrinter(writer, CSVFormat.EXCEL));
     }
 
@@ -29,7 +29,7 @@ public class CsvResultWriter implements ResultWriter {
      * コンストラクタ
      * @param csvPrinter CSV出力
      */
-    public CsvResultWriter(CSVPrinter csvPrinter) {
+    public CsvDestination(CSVPrinter csvPrinter) {
         this.csvPrinter = csvPrinter;
     }
 
@@ -44,7 +44,7 @@ public class CsvResultWriter implements ResultWriter {
     }
 
     @Override
-    public <T> void write(Column<T> column, T value) throws IOException {
+    public <T> void output(Column<T> column, T value) throws IOException {
         csvPrinter.print(value);
     }
 

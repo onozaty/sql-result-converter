@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 結果の出力処理を表します。
+ * 出力先を表します。
  * @author onozaty
  */
-public interface ResultWriter extends Closeable {
+public interface Destination extends Closeable {
 
     /**
      * 準備します。
@@ -24,7 +24,7 @@ public interface ResultWriter extends Closeable {
      * @param value 値
      * @throws IOException
      */
-    <T> void write(Column<T> column, T value) throws IOException;
+    <T> void output(Column<T> column, T value) throws IOException;
 
     /**
      * 行を終了します。
