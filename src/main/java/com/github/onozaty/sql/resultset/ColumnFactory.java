@@ -14,6 +14,7 @@ import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -146,22 +147,30 @@ public class ColumnFactory {
 
             case Types.ARRAY:
 
-                return new Column<Array>(
+                return new Column<List<Object>>(
                         columnName,
-                        ValueRetriever.newValueRetriever(columnIndex, Array.class));
+                        ValueRetriever.newValueRetriever(
+                                columnIndex,
+                                Array.class,
+                                x -> {
+                                    // 配列のままでは扱いずらいのでListに変換する
+                                    Object[] value = (Object[]) x.getArray();
+                                    if (value == null) {
+                                        return null;
+                                    }
+                                    return Arrays.asList(value);
+                                }));
 
             default:
 
-                return new Column<Object>(
-                        columnName,
-                        ValueRetriever.newValueRetriever(columnIndex, Object.class));
+                throw new UnsupportedOperationException("Unsupported type: " + columnType);
         }
     }
 
     private static class DefaultDateTimeFormat {
 
         private static final DateTimeFormatter DATE_TIME = ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS");
-        private static final DateTimeFormatter OFFSET_DATE_TIME = ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSxxxxx");
+        private static final DateTimeFormatter OFFSET_DATE_TIME = ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSxxxxx");
         private static final DateTimeFormatter DATE = ofPattern("uuuu-MM-dd");
         private static final DateTimeFormatter TIME = ofPattern("HH:mm:ss.SSS");
         private static final DateTimeFormatter OFFSET_TIME = ofPattern("HH:mm:ss.SSSxxxxx");

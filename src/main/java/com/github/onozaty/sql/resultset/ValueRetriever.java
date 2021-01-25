@@ -34,6 +34,24 @@ public interface ValueRetriever<T> {
     }
 
     /**
+     * 値取得処理を生成します。
+     * @param <T> {@link ResultSet}から取得した値の型
+     * @param <R> 変換処理後の型
+     * @param columnIndex カラム位置
+     * @param type 取得する値の型
+     * @param converter 値の変換処理
+     * @return 値取得処理
+     */
+    public static <T, R> ValueRetriever<R> newValueRetriever(
+            int columnIndex, Class<T> type, ValueConverter<T, R> converter) {
+
+        return resultSet -> {
+            T value = resultSet.getObject(columnIndex, type);
+            return converter.apply(value);
+        };
+    }
+
+    /**
      * 日時をフォーマットする値取得処理を生成します。
      * @param columnIndex カラム位置
      * @param type 取得する値の型
@@ -53,5 +71,10 @@ public interface ValueRetriever<T> {
 
             return formatter.format(value);
         };
+    }
+
+    @FunctionalInterface
+    public static interface ValueConverter<T, R> {
+        R apply(T t) throws SQLException;
     }
 }

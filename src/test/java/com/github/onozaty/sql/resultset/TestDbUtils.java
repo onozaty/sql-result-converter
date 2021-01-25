@@ -49,8 +49,8 @@ public class TestDbUtils {
                             + "column_decimal DECIMAL(20, 3), "
                             + "column_double DOUBLE, "
                             + "column_real REAL, "
-                            + "column_time TIME,"
-                            + "column_time_tz TIME WITH TIME ZONE,"
+                            + "column_time TIME(3),"
+                            + "column_time_tz TIME(3) WITH TIME ZONE,"
                             + "column_date DATE, "
                             + "column_timestamp TIMESTAMP, "
                             + "column_timestamp_tz TIMESTAMP WITH TIME ZONE, "
@@ -87,11 +87,11 @@ public class TestDbUtils {
                             + "1.0, " // DECIMAL
                             + "0.001, " // DOUBLE
                             + "-10.0, " // REAL
-                            + "'00:00:00', " // TIME
-                            + "'12:00:01+09', " // TIME WITH TIME ZONE
+                            + "'00:00:00.123', " // TIME
+                            + "'12:00:01.222+09', " // TIME WITH TIME ZONE
                             + "NULL," // DATE
                             + "'2021-12-24 20:00:00.12345', " // TIMESTAMP
-                            + "'2020-02-01 23:59:59+00:00', " // TIMESTAMP WITH TIME ZONE
+                            + "'2020-02-01 23:59:59.333+00:00', " // TIMESTAMP WITH TIME ZONE
                             + "'', " // VARCHAR(100)
                             + "ARRAY['a']" // ARRAY
                             + ")");
