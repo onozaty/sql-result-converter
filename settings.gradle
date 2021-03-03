@@ -1,1 +1,3 @@
 rootProject.name = 'sql-resultset-converter'
+
+include 'sql-resultset-converter-core'

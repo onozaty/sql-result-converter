@@ -1,95 +1,17 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
-    id 'com.jfrog.bintray' version "1.8.4"
+    id 'java'
 }
 
-group = 'com.github.onozaty'
-version = '1.0.0'
-sourceCompatibility = 1.8
+allprojects {
 
-repositories {
-    jcenter()
-}
+    group = 'com.github.onozaty'
+    version = '1.0.0'
+    sourceCompatibility = 1.8
 
-def defaultEncoding = 'UTF-8'
-tasks.withType(AbstractCompile)*.options*.encoding = defaultEncoding
-
-dependencies {
-    implementation 'org.apache.commons:commons-csv:1.8'
-
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.assertj:assertj-core:3.18.1'
-    testImplementation 'com.h2database:h2:1.4.200'
-
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-javadoc {
-    options.encoding = defaultEncoding
-}
-
-artifacts {
-    archives sourcesJar, javadocJar
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-
-            pom {
-                name = 'sql-resultset-converter'
-                description = 'Converts a SQL ResultSet.'
-                url = 'https://github.com/onozaty/sql-resultset-converter/'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:https://github.com/onozaty/sql-resultset-converter.git'
-                    url = 'https://github.com/onozaty/sql-resultset-converter/'
-                }
-                developers {
-                    developer {
-                        id = "onozaty"
-                        name = "Hirokazu Onozato"
-                        email = "onozaty@gmail.com"
-                    }
-                }
-            }
-        }
-    }
     repositories {
-        maven {
-            url "file://$buildDir/maven"
-        }
+        jcenter()
     }
-}
 
-bintray {
-    user = project.hasProperty('bintray_user') ? bintray_user : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('bintray_api_key') ? bintray_api_key : System.getenv('BINTRAY_API_KEY')
-
-    publications = ['mavenJava']
-
-    pkg {
-        repo = 'maven'
-        name = group + ':' + project.name
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/onozaty/sql-resultset-converter.git'
-    }
+    def defaultEncoding = 'UTF-8'
+    tasks.withType(AbstractCompile)*.options*.encoding = defaultEncoding
 }
