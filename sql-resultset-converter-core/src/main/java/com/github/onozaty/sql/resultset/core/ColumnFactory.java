@@ -1,4 +1,4 @@
-package com.github.onozaty.sql.resultset;
+package com.github.onozaty.sql.resultset.core;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 

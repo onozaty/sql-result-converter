@@ -1,4 +1,4 @@
-package com.github.onozaty.sql.resultset;
+package com.github.onozaty.sql.resultset.core;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package com.github.onozaty.sql.resultset;
+package com.github.onozaty.sql.resultset.core;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
