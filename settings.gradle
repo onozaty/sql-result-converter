@@ -1,3 +1,4 @@
 rootProject.name = 'sql-resultset-converter'
 
 include 'sql-resultset-converter-core'
+include 'sql-resultset-converter-sql2csv'

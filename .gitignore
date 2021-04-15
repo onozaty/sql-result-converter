@@ -1,3 +1,4 @@
 .gradle
 build
 bin
+sql-resultset-converter-sql2csv/testdb/

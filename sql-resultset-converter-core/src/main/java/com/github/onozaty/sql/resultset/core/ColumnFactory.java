@@ -43,7 +43,7 @@ public class ColumnFactory {
 
     private static Column<?> createColumn(ResultSetMetaData metaData, int columnIndex) throws SQLException {
 
-        String columnName = metaData.getColumnName(columnIndex);
+        String columnName = metaData.getColumnLabel(columnIndex);
         int columnType = metaData.getColumnType(columnIndex);
 
         switch (columnType) {

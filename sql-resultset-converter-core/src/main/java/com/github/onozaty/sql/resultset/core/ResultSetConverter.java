@@ -27,17 +27,18 @@ public class ResultSetConverter {
      * @param connection DBコネクション
      * @param sql SQL
      * @param outputDestination 出力先
+     * @return 出力件数
      * @throws SQLException
      * @throws IOException
      */
-    public static void convert(Connection connection, String sql, OutputDestination outputDestination)
+    public static int convert(Connection connection, String sql, OutputDestination outputDestination)
             throws SQLException, IOException {
 
         try (Statement statement = connection.createStatement()) {
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
 
-                from(resultSet).to(outputDestination);
+                return from(resultSet).to(outputDestination);
             }
         }
     }
@@ -66,13 +67,15 @@ public class ResultSetConverter {
     /**
      * 変換結果を出力します。
      * @param outputDestination 出力先
+     * @return 出力件数
      * @throws SQLException
      * @throws IOException
      */
-    public void to(OutputDestination outputDestination) throws SQLException, IOException {
+    public int to(OutputDestination outputDestination) throws SQLException, IOException {
 
         outputDestination.prepare(columns);
 
+        int count = 0;
         while (resultSet.next()) {
 
             for (Column<?> column : columns) {
@@ -82,7 +85,9 @@ public class ResultSetConverter {
             }
 
             outputDestination.endRecord();
-
+            count++;
         }
+
+        return count;
     }
 }

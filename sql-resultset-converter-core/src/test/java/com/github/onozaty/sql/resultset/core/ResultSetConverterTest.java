@@ -35,7 +35,7 @@ public class ResultSetConverterTest {
             TestDbUtils.setupTable(connection);
 
             MapDestination mapDestination = new MapDestination();
-            ResultSetConverter.convert(
+            int count = ResultSetConverter.convert(
                     connection,
                     "SELECT * FROM rows",
                     mapDestination);
@@ -82,6 +82,48 @@ public class ResultSetConverterTest {
 
             assertThat(mapDestination.getRecords())
                     .containsExactlyElementsOf(expected);
+            assertThat(count).isEqualTo(2);
+        }
+
+    }
+
+    /**
+     * {@link ResultSetConverter#convert(java.sql.Connection, String, OutputDestination)}のテストです。
+     * @throws SQLException
+     * @throws IOException
+     */
+    @Test
+    public void convert_カラム名() throws SQLException, IOException {
+
+        try (Connection connection = TestDbUtils.getConnection()) {
+
+            TestDbUtils.setupTable(connection);
+
+            MapDestination mapDestination = new MapDestination();
+            int count = ResultSetConverter.convert(
+                    connection,
+                    "SELECT COLUMN_INT AS カラム1, COLUMN_BOOLEAN AS カラム2, COLUMN_TINYINT FROM rows",
+                    mapDestination);
+
+            List<Map<String, Object>> expected = new ArrayList<>();
+            expected.add(
+                    new MapBuilder()
+                            .entry("カラム1", Integer.valueOf(1))
+                            .entry("カラム2", Boolean.valueOf(true))
+                            .entry("COLUMN_TINYINT", Byte.valueOf((byte) -1))
+                            .build());
+            expected.add(
+                    new MapBuilder()
+                            .entry("カラム1", Integer.valueOf(2))
+                            .entry("カラム2", Boolean.valueOf(false))
+                            .entry("COLUMN_TINYINT", Byte.valueOf((byte) 123))
+                            .build());
+
+            equals(expected.get(0), mapDestination.getRecords().get(0));
+
+            assertThat(mapDestination.getRecords())
+                    .containsExactlyElementsOf(expected);
+            assertThat(count).isEqualTo(2);
         }
 
     }
