@@ -10,13 +10,17 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * DB接続情報です。
  * @author onozaty
  */
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DatabaseConnectionSettings {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
