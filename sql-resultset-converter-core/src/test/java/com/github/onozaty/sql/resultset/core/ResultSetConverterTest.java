@@ -54,8 +54,8 @@ public class ResultSetConverterTest {
                             .entry("COLUMN_TIME", "23:59:59.000")
                             .entry("COLUMN_TIME_TZ", "23:59:59.000+01:00")
                             .entry("COLUMN_DATE", "2004-12-31")
-                            .entry("COLUMN_TIMESTAMP", "1999-01-31T10:00:00.000")
-                            .entry("COLUMN_TIMESTAMP_TZ", "2005-12-31T23:59:59.000-10:00")
+                            .entry("COLUMN_TIMESTAMP", "1999-01-31 10:00:00.000")
+                            .entry("COLUMN_TIMESTAMP_TZ", "2005-12-31 23:59:59.000-10:00")
                             .entry("COLUMN_VARCHAR", "xxxxxxx")
                             .entry("COLUMN_ARRAY", Arrays.asList(1, 2))
                             .build());
@@ -72,8 +72,8 @@ public class ResultSetConverterTest {
                             .entry("COLUMN_TIME", "00:00:00.123")
                             .entry("COLUMN_TIME_TZ", "12:00:01.222+09:00")
                             .entry("COLUMN_DATE", null)
-                            .entry("COLUMN_TIMESTAMP", "2021-12-24T20:00:00.123")
-                            .entry("COLUMN_TIMESTAMP_TZ", "2020-02-01T23:59:59.333+00:00")
+                            .entry("COLUMN_TIMESTAMP", "2021-12-24 20:00:00.123")
+                            .entry("COLUMN_TIMESTAMP_TZ", "2020-02-01 23:59:59.333+00:00")
                             .entry("COLUMN_VARCHAR", "")
                             .entry("COLUMN_ARRAY", Arrays.asList("a"))
                             .build());

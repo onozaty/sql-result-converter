@@ -169,8 +169,8 @@ public class ColumnFactory {
 
     private static class DefaultDateTimeFormat {
 
-        private static final DateTimeFormatter DATE_TIME = ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS");
-        private static final DateTimeFormatter OFFSET_DATE_TIME = ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSxxxxx");
+        private static final DateTimeFormatter DATE_TIME = ofPattern("uuuu-MM-dd HH:mm:ss.SSS");
+        private static final DateTimeFormatter OFFSET_DATE_TIME = ofPattern("uuuu-MM-dd HH:mm:ss.SSSxxxxx");
         private static final DateTimeFormatter DATE = ofPattern("uuuu-MM-dd");
         private static final DateTimeFormatter TIME = ofPattern("HH:mm:ss.SSS");
         private static final DateTimeFormatter OFFSET_TIME = ofPattern("HH:mm:ss.SSSxxxxx");
