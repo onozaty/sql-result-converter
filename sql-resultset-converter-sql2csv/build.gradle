@@ -29,3 +29,9 @@ def mainClassName = 'com.github.onozaty.sql.resultset.sql2csv.Sql2Csv'
 jar {
     manifest { attributes 'Main-Class' : mainClassName }
 }
+
+shadowJar {
+    archiveBaseName.set('sql2csv')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}

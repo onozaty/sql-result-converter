@@ -94,7 +94,7 @@ public class Sql2Csv {
         help.setOptionComparator(null); // 順番を変えない
 
         // ヘルプを出力
-        help.printHelp("java -jar  sql-resultset-converter-sql2csv-all.jar", options, true);
+        help.printHelp("java -jar sql2csv.jar", options, true);
         System.exit(1);
     }
 
