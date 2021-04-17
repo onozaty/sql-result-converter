@@ -22,6 +22,7 @@ dependencies {
     testImplementation 'com.h2database:h2:1.4.200'
 
     runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
+    runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
 }
 
 def mainClassName = 'com.github.onozaty.sql.resultset.sql2csv.Sql2Csv'
@@ -34,4 +35,6 @@ shadowJar {
     archiveBaseName.set('sql2csv')
     archiveClassifier.set('')
     archiveVersion.set('')
+
+    mergeServiceFiles()
 }
