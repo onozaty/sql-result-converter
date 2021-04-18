@@ -32,3 +32,17 @@ In the Connection setting file, enter the Database connection information.
   "password": "testpassword"
 }
 ```
+
+## Database
+
+JDBC drivers for the following databases are included in the package.
+
+* PostgreSQL
+* MySQL
+* SQL Server
+
+When using other databases, please add the JDBC driver to your classpath.
+
+```
+java -classpath sql2csv.jar;hoge-jdbc.jar com.github.onozaty.sql.resultset.sql2csv.Sql2Csv -c conn.json -q query.sql -o result.csv
+```
