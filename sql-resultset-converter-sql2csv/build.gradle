@@ -23,6 +23,7 @@ dependencies {
 
     runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
     runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+    runtimeOnly group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '9.2.1.jre8'
 }
 
 def mainClassName = 'com.github.onozaty.sql.resultset.sql2csv.Sql2Csv'

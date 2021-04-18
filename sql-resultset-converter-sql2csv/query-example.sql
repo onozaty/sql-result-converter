@@ -1,1 +1,1 @@
-SELECT * FROM issues ORDER BY id;
+SELECT * FROM users ORDER BY id;
