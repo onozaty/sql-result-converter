@@ -2,3 +2,4 @@
 build
 bin
 sql-resultset-converter-sql2csv/testdb/
+sql-resultset-converter-sql2csv/users.csv
