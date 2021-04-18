@@ -44,15 +44,15 @@ public class Sql2Csv {
         options.addOption(
                 Option.builder("c")
                         .longOpt("conn")
-                        .desc("Database connection setting file")
+                        .desc("Connection setting file")
                         .hasArg()
                         .argName("conn.json")
                         .required()
                         .build());
         options.addOption(
-                Option.builder("s")
-                        .longOpt("sql")
-                        .desc("SQL file")
+                Option.builder("q")
+                        .longOpt("query")
+                        .desc("SQL query file")
                         .hasArg()
                         .argName("query.sql")
                         .required()
@@ -70,7 +70,7 @@ public class Sql2Csv {
             CommandLine line = parser.parse(options, args);
 
             Path connectionSettingFilePath = Paths.get(line.getOptionValue("c"));
-            Path sqlFilePath = Paths.get(line.getOptionValue("s"));
+            Path sqlFilePath = Paths.get(line.getOptionValue("q"));
             Path outputFilePath = Paths.get(line.getOptionValue("o"));
 
             DatabaseConnectionSettings connectionSettings =
